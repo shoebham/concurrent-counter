@@ -1,6 +1,5 @@
-require("dotenv").config();
-
-const githubPAT = process.env.GITHUB_PAT;
+const githubPAT =
+  "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";
 
 const token = githubPAT;
 
