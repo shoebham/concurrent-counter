@@ -1,3 +1,10 @@
+const token = "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";
+const owner = "shoebham";
+const repo = "concurrent-counter";
+const path = "data.json";
+const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+var sha = "";
+
 let names = ["shubham", "tyagi", "tanuj"];
 let localdata = { shubham: 0, tyagi: 0, tanuj: 0 };
 function readJson() {
@@ -66,14 +73,6 @@ function updateLocal() {
   localdata["tyagi"] = document.getElementById("tyagi-counter").textContent;
   localdata["tanuj"] = document.getElementById("tanuj-counter").textContent;
 }
-
-const token =
-  "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";
-const owner = "shoebham";
-const repo = "concurrent-counter";
-const path = "data.json";
-const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-var sha = "";
 
 function save() {
   // Event listener for save button
