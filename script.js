@@ -14,6 +14,7 @@ function readJson() {
 
       savebtn.addEventListener("click", () => {
         console.log("saved");
+        savebtn.disabled = true;
         save();
       });
       let body = document.getElementsByTagName("body")[0];
@@ -99,6 +100,7 @@ function save() {
     .then((response) => {
       if (response.ok) {
         sha = getSHA();
+        document.getElementById("save").disable = false;
         alert("Counter values saved successfully!");
       } else {
         alert("Failed to save counter values.");
