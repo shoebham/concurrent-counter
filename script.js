@@ -1,5 +1,9 @@
-const token =
-  "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";
+require("dotenv").config();
+
+const githubPAT = process.env.GITHUB_PAT;
+
+const token = githubPAT;
+
 const owner = "shoebham";
 const repo = "concurrent-counter";
 const path = "data.json";
