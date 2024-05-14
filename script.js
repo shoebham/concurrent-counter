@@ -1,4 +1,5 @@
-const token = "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";
+const token =
+  "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";
 const owner = "shoebham";
 const repo = "concurrent-counter";
 const path = "data.json";
