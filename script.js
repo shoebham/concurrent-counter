@@ -12,11 +12,12 @@ let localdata = { shubham: 0, tyagi: 0, tanuj: 0 };
 
 function readJson() {
   fetch(
-    "https://raw.githubusercontent.com/shoebham/concurrent-counter/main/data.json?v=" +
-      Date.now()
+    "https://api.github.com/repos/shoebham/concurrent-counter/contents/data.json"
   )
     .then((response) => response.json())
     .then((data) => {
+      data = atob(data.content);
+      data = JSON.parse(data);
       console.log("Json data", data);
       setup("shubham", data["shubham"]);
       setup("tyagi", data["tyagi"]);
