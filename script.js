@@ -9,8 +9,11 @@ const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 var sha = "";
 let names = ["shubham", "tyagi", "tanuj"];
 let localdata = { shubham: 0, tyagi: 0, tanuj: 0 };
+
 function readJson() {
-  fetch("data.json")
+  fetch(
+    "https://raw.githubusercontent.com/shoebham/concurrent-counter/main/data.json"
+  )
     .then((response) => response.json())
     .then((data) => {
       setup("shubham", data["shubham"]);
@@ -33,6 +36,7 @@ function readJson() {
       console.error("Error:", error);
     });
 }
+
 function setup(nameText, cntText) {
   let plus = document.createElement("button");
   plus.id = "plus";
