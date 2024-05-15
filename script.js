@@ -1,14 +1,12 @@
-const githubPAT =
-  "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";
-
-const token = githubPAT;
+var token = "";
 
 const owner = "shoebham";
+const lambdaUrl =
+  "https://dngqvawgx4ao3debwj3u5t7bmu0kqxpc.lambda-url.us-east-1.on.aws/";
 const repo = "concurrent-counter";
 const path = "data.json";
 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 var sha = "";
-
 let names = ["shubham", "tyagi", "tanuj"];
 let localdata = { shubham: 0, tyagi: 0, tanuj: 0 };
 function readJson() {
@@ -115,26 +113,51 @@ function save() {
     });
 }
 
-function getSHA() {
-  fetch(apiUrl, {
-    method: "GET",
-    headers: {
-      Authorization: `token ${token}`,
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const currentSha = data.sha;
-      sha = currentSha;
-      console.log("Current SHA of the file:", currentSha);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
+async function setToken() {
+  try {
+    const response = await fetch(lambdaUrl, {
+      method: "GET",
+      mode: "cors", // This should be 'cors' for cross-origin requests
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error status: ${response.status}`);
+    }
+    const data = await response.text();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+async function getSHA() {
+  try {
+    token = await setToken();
+    token = token.replace(/"/g, "");
+    console.log("Token", token);
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `token ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error status: ${response.status}`);
+    }
+    const data = await response.json();
+    const currentSha = data.sha;
+    sha = currentSha;
+    console.log("Current SHA of the file:", currentSha);
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
 }
 // names.forEach((name) => {
 //   setup(name);
-// });
-
+// })
+// setToken();
 getSHA();
 readJson();
