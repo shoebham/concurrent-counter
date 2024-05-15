@@ -67,6 +67,7 @@ function setup(nameText, cntText) {
   });
 
   minus.addEventListener("click", (e) => {
+    if (counter.textContent == "0") return;
     counter.textContent = Number(counter.textContent) - 20;
     localdata[nameText] = counter.textContent;
   });
