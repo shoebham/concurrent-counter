@@ -12,7 +12,8 @@ let localdata = { shubham: 0, tyagi: 0, tanuj: 0 };
 
 function readJson() {
   fetch(
-    "https://raw.githubusercontent.com/shoebham/concurrent-counter/main/data.json"
+    "https://raw.githubusercontent.com/shoebham/concurrent-counter/main/data.json?v=" +
+      Date.now()
   )
     .then((response) => response.json())
     .then((data) => {
@@ -75,16 +76,9 @@ function setup(nameText, cntText) {
   body.appendChild(div);
 }
 
-function updateLocal() {
-  localdata["shubham"] = document.getElementById("shubham-counter").textContent;
-  localdata["tyagi"] = document.getElementById("tyagi-counter").textContent;
-  localdata["tanuj"] = document.getElementById("tanuj-counter").textContent;
-}
-
 function save() {
   // Event listener for save button
   // Convert counters object to JSON string
-  updateLocal();
   const jsonData = JSON.stringify(localdata, null, 2);
   console.log("jsonData", jsonData, "localdata", localdata);
   const encodedData = btoa(unescape(encodeURIComponent(jsonData)));
