@@ -16,6 +16,7 @@ function readJson() {
   )
     .then((response) => response.json())
     .then((data) => {
+      console.log("Json data", data);
       setup("shubham", data["shubham"]);
       setup("tyagi", data["tyagi"]);
       setup("tanuj", data["tanuj"]);
